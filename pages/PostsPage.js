@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import { observer } from 'mobx-react';
-import { Button } from "react-native-web";
 import PostList from '../src/components/PostList';
 import PostsStore from '../src/store/PostsStore';
 import EditPage from './EditPage';

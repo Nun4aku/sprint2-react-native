@@ -20,7 +20,7 @@ function Navigate() {
                                     { 
                                         title: 'Все посты',
                                         headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { fontWeight: 'light', color: '#fff'}
+                                        headerTitleStyle: { color: '#fff'}
                                     }
                         }
                     />
@@ -31,7 +31,7 @@ function Navigate() {
                                     { 
                                         title: 'Добавить пост',
                                         headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { fontWeight: 'light', color: '#fff'}
+                                        headerTitleStyle: { color: '#fff'}
                                     }
                         }
                     />
@@ -42,7 +42,7 @@ function Navigate() {
                                     { 
                                         title: 'Редактировать пост',
                                         headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { fontWeight: 'light', color: '#fff'}
+                                        headerTitleStyle: { color: '#fff'}
                                     }
                         }
                     />
