@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Button } from "react-native-web";
 import PostList from '../src/components/PostList';
 import PostsStore from '../src/store/PostsStore';
-
+import EditPage from './EditPage';
 
 const PostsPage = ( { navigation } ) => {
 
@@ -16,7 +16,7 @@ const PostsPage = ( { navigation } ) => {
         <View style={styles.container}>
             <Button title ="Добавить пост" onPress = {loadScene} />
 
-            <PostList postArr={PostsStore.posts} />
+            <PostList postArr={PostsStore.posts} navigation={navigation}/>
         </View>
     )
 }

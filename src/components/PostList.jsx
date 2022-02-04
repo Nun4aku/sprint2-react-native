@@ -1,43 +1,44 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, FlatList} from 'react-native';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
+import PostsStore from '../store/PostsStore';
 
 
 
+const PostList =  ( {postArr, navigation} ) => {
 
-const PostList =  ( {postArr} ) => {
-
-
-    const [modalActive, setModalActive] = useState(false)
-    const [modalActiveEdit, setModalActiveEdit] = useState(false)
-    const [delID, setDelID] = useState('')
-    const [editID, setEditID] = useState('')
-
-    /*
-    const arrJS = toJS(postArr)
-    var copy = Object.assign({}, arrJS);
-    console.log(copy)
-    */
-      
+    
 
     return (
         <View style={styles.container}>
             
-                {
-   
-                    postArr.map ( elem =>
-                        <TouchableOpacity key={elem.id}>
-                            <View style = {styles.post}>  
-                                <Text>ID:{elem.id}</Text>
-                                <Text style = {styles.title}>{elem.title}</Text>
-                                <Text>{elem.body}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    )
-                    
-                }
+                <FlatList 
+                    data={postArr} 
+                    renderItem={ 
+                        ( {item} )  => (
+                                            <TouchableOpacity key={item.id}>
+                                                <View style = {styles.post}>  
+                                                    <Text>ID:{item.id}</Text>
+                                                    <Text style = {styles.title}>{item.title}</Text>
+                                                    <Text>{item.body}</Text>
+                                                    <Button 
+                                                        title='Edit' 
+                                                        id={item.id} 
+                                                        onPress={ 
+                                                            () => { 
+                                                                    navigation.navigate('EditPage')
+                                                                    PostsStore.editPostID = item.id
+                                                                    PostsStore.getOnePost(item.id)
+                                                            }
+                                                        }
+                                                    />
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                    } 
+                />
             
         </View>
   )

@@ -4,6 +4,7 @@ import { makeAutoObservable, makeObservable, toJS} from "mobx";
 import { observable, action, runInAction, computed} from 'mobx';
 import { observer } from 'mobx-react';
 import PostService from '../API/PostService';
+import axios from 'axios';
 
 
 class PostsStore {
@@ -12,12 +13,15 @@ class PostsStore {
         makeObservable(this, {
             posts: observable,
             addPost: observable,
+            editPostID: observable,
+            onePost: observable,
 
             getPosts: action,
             setAddPost: action,
             addPostFunction: action,
             setAddPostTitle: action,
             setAddPostBody: action,
+            getOnePost: action,
             
         })
     }
@@ -78,27 +82,35 @@ class PostsStore {
         })
         
         this.getPosts()
-
-/*
-        //рабочий аксиос без PostService
-        axios.post(`http://localhost:3000/api/tasks?access_token=${localStorage.getItem('access_token')}`, this.addPost)
-        .then( (response) => {
-                
-                console.log(response);
-                console.log(response.data.id);
-
-                runInAction( async () => {
-                    this.addPost = { title: '', body: '', done: false }
-                })
-                this.getPosts()
-        
-        })
-        .catch(function (error) {
-            alert('Что-то пошло не так')
-        }); 
-*/
     }
 
+
+    //Функция получения одного поста
+    editPostID = ''
+
+    onePost = {
+        title: '',
+        body: '',
+        done: false
+    }
+
+    getOnePost = (id) => {
+        axios.get(`http://localhost:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+            .then( (response) => {
+                    
+                    console.log(response);
+                    //console.log(response.data.id);
+                    runInAction( async () => {
+                        this.onePost = response.data
+                    })
+                    
+                    return response
+            
+            })
+            .catch(function (error) {
+                alert('Что-то пошло не так')
+        })
+    }
 }
 
 
