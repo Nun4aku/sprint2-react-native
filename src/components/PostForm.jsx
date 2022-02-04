@@ -4,10 +4,21 @@ import { StyleSheet, Text, View, SafeAreaView, Button, TextInput } from 'react-n
 import PostsStore from "../store/PostsStore";
 import { observer } from 'mobx-react';
 
-const PostForm = ( {create} ) => {
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+
+
+
+const PostForm = ( {navigation} ) => {
 
     const [text, setValue] = useState('')
-    
+
+    const loadScene = () => {
+        //PostsStore.addPostFunction()
+        //navigation.navigate('Posts')
+    }
+
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -30,14 +41,16 @@ const PostForm = ( {create} ) => {
             />
             <Button 
                 style = {styles.button} 
-                title="Создать пост" 
-                onPress={ 
-                            (e) =>  { 
-                                        e.preventDefault();
-                                        PostsStore.addPostFunction()
-                                    } 
-                        }
+                title="Создать пост"
+                onPress = { 
+                    (e) => {
+                        e.preventDefault()
+                        PostsStore.addPostFunction()
+                        navigation.goBack()
+                    }
+                 }
             />
+            
         </View>
     )
 }
@@ -46,8 +59,7 @@ export default observer(PostForm);
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 10,
-        paddingVertical: 10,
+        
     },
     input: {
         paddingHorizontal: 10,

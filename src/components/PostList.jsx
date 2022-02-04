@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { observer, toJS } from 'mobx-react';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 
 
 
@@ -14,22 +15,28 @@ const PostList =  ( {postArr} ) => {
     const [delID, setDelID] = useState('')
     const [editID, setEditID] = useState('')
 
-    console.log(postArr)
+    /*
+    const arrJS = toJS(postArr)
+    var copy = Object.assign({}, arrJS);
+    console.log(copy)
+    */
+      
 
     return (
         <View style={styles.container}>
-            <Text style={styles.ViewTitle}>Все посты</Text>
             
                 {
-                    postArr.map ( t =>
-                        <TouchableOpacity key={t.id}>
+   
+                    postArr.map ( elem =>
+                        <TouchableOpacity key={elem.id}>
                             <View style = {styles.post}>  
-                                <Text>ID:{t.id}</Text>
-                                <Text style = {styles.title}>{t.title}</Text>
-                                <Text>{t.body}</Text>
+                                <Text>ID:{elem.id}</Text>
+                                <Text style = {styles.title}>{elem.title}</Text>
+                                <Text>{elem.body}</Text>
                             </View>
                         </TouchableOpacity>
-                    ) 
+                    )
+                    
                 }
             
         </View>
@@ -42,7 +49,7 @@ export default observer (PostList);
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20,
+        
     },
     ViewTitle: {
         paddingBottom: 20,
@@ -50,6 +57,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     post: {
+        backgroundColor: '#fff',
         marginVertical: 5,
         paddingVertical: 20,
         paddingHorizontal: 10,

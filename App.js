@@ -1,11 +1,11 @@
 import React, { useEffect }from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { observer } from 'mobx-react';
 import PostsStore from './src/store/PostsStore';
-import PostList from './src/components/PostList';
-import PostForm from './src/components/PostForm';
+import { toJS } from 'mobx';
 
+import Navigate from './navigate';
 
 function App() {
 
@@ -17,17 +17,31 @@ function App() {
 
 
   return (
+    
+    
+
+      <Navigate />
+
+/*
     <SafeAreaView>
-      
-      <View style={styles.topMenu}>
-        <Text style={styles.topMenuText}>Шапка</Text>
-      </View>
+      <ScrollView>
+        <View style={styles.topMenu}>
+          <Text style={styles.topMenuText}>Шапка</Text>
+        </View>
 
-      <PostForm />
+        <PostForm />
+        
 
-      <PostList postArr={PostsStore.posts}/>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+
+        <PostList postArr={PostsStore.posts} />
+        <StatusBar style="auto" />
+      </ScrollView>
+    </SafeAreaView>  
+*/
+
+    
+
+
   );
 }
 

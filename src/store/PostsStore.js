@@ -23,6 +23,7 @@ class PostsStore {
     }
 
     posts = [];
+    post
     
     //функция получения постов с Бэка
     async getPosts() {
@@ -30,7 +31,7 @@ class PostsStore {
         try {
                 const res = await PostService.getAll()
                 runInAction( () => {
-                    this.posts = res
+                    this.posts = res.sort( (a,b) => b['id'] - a['id'])
                 })
         }
         finally {
