@@ -30,7 +30,7 @@ export default class PostService {
 function axiosOptions () {
 
     const instance = axios.create({
-        baseURL: 'http://localhost:3000/api/',
+        baseURL: 'http://176.196.2.67:3000/api/',
         headers: {'access_token': '2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv'}
     });
 

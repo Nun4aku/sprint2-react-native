@@ -10,9 +10,13 @@ import Navigate from './navigate';
 function App() {
 
   useEffect( () => {
+    /*
     setTimeout ( async() => {
       PostsStore.getPosts()
     }, 1000)
+    */
+    PostsStore.getPosts()
+
   },[])
 
 

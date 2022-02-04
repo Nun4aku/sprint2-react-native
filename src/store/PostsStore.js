@@ -38,13 +38,16 @@ class PostsStore {
         try {
                 const res = await PostService.getAll()
                 runInAction( () => {
-                    this.posts = res.sort( (a,b) => b['id'] - a['id'])
+                    
+                    this.posts = res
                 })
         }
         finally {
+            /*
             runInAction( () => {
                 //this.isPostLoading = false
             })
+            */
         }
     }
 
@@ -94,7 +97,7 @@ class PostsStore {
     
 
     getOnePost = (id) => {
-        axios.get(`http://localhost:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+        axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
             .then( (response) => {
                     
                     console.log(response);
@@ -126,7 +129,7 @@ class PostsStore {
 
     editOnePost = () => {
 
-        axios.put(`http://localhost:3000/api/tasks/${this.editPostID}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`, this.onePost)
+        axios.put(`http://176.196.2.67:3000/api/tasks/${this.editPostID}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`, this.onePost)
             .then( (response) => {
                     
                     console.log(response);
@@ -146,7 +149,7 @@ class PostsStore {
     //функция удаления постов
     delPost = (id) => {
 
-        axios.delete(`http://localhost:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+        axios.delete(`http://176.196.2.67:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
         .then( (response) => {
 
                 console.log(response);
