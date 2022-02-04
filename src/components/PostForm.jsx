@@ -39,7 +39,8 @@ const PostForm = ( {navigation} ) => {
                 onChange = { (e) => PostsStore.setAddPostBody( e.target ) }
                
             />
-            <Button 
+            <Button
+                color="#62ad80"
                 style = {styles.button} 
                 title="Создать пост"
                 onPress = { 

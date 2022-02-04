@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList} from 'react-native';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import PostsStore from '../store/PostsStore';
@@ -10,36 +10,41 @@ import PostsStore from '../store/PostsStore';
 const PostList =  ( {postArr, navigation} ) => {
 
     
-
     return (
         <View style={styles.container}>
             
-                <FlatList 
-                    data={postArr} 
-                    renderItem={ 
-                        ( {item} )  => (
-                                            <TouchableOpacity key={item.id}>
-                                                <View style = {styles.post}>  
-                                                    <Text>ID:{item.id}</Text>
-                                                    <Text style = {styles.title}>{item.title}</Text>
-                                                    <Text>{item.body}</Text>
-                                                    <Button 
-                                                        title='Edit' 
-                                                        id={item.id} 
-                                                        onPress={ 
-                                                            () => { 
-                                                                    navigation.navigate('EditPage')
-                                                                    PostsStore.editPostID = item.id
-                                                                    PostsStore.getOnePost(item.id)
-                                                            }
-                                                        }
-                                                    />
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
-                    } 
-                />
-            
+            <FlatList 
+                data={postArr} 
+                renderItem={ 
+                    ( {item} )  => (
+                                        <TouchableOpacity
+                                            key={item.id}
+                                            onPress={ 
+                                                () => { 
+                                                        navigation.navigate('EditPage')
+                                                        PostsStore.editPostID = item.id
+                                                        PostsStore.getOnePost(item.id)
+                                                }
+                                            }
+                                        >
+                                            <View style = {styles.post}>  
+                                                <Text>ID:{item.id}</Text>
+                                                <Text style = {styles.title}>{item.title}</Text>
+                                                <Text style= {styles.body}>{item.body}</Text>
+                                                <Button 
+                                                    color="#62ad80"
+                                                    title='удалить'
+                                                    onPress={ 
+                                                                () => { 
+                                                                    PostsStore.delPost(item.id)
+                                                                }
+                                                    }
+                                                />
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                } 
+            />
         </View>
   )
 }
@@ -49,27 +54,28 @@ export default observer (PostList);
 
 
 const styles = StyleSheet.create({
-    container: {
-        
-    },
-    ViewTitle: {
-        paddingBottom: 20,
-        paddingTop: 20,
-        fontSize: 16,
-    },
     post: {
         backgroundColor: '#fff',
         marginVertical: 5,
         paddingVertical: 20,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: '#dfdfdf',
-        borderStyle: 'solid',
-        borderRadius: 10,
+        paddingHorizontal: 20,
     },
     title: {
-        paddingBottom: 20,
+        paddingBottom: 5,
+        marginBottom: 20,
         paddingTop: 10,
         fontSize: 22,
+        fontWeight: '500',
+        borderBottomColor: '#ededed',
+        borderStyle: 'solid',
+        borderColor: '#dfdfdf',
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        
+    },
+    body: {
+        paddingBottom: 30,
+        fontSize: 16,
+        textAlign: 'justify',
     },
   });

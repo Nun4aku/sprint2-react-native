@@ -17,11 +17,14 @@ class PostsStore {
             onePost: observable,
 
             getPosts: action,
-            setAddPost: action,
             addPostFunction: action,
             setAddPostTitle: action,
             setAddPostBody: action,
             getOnePost: action,
+            delPost: action,
+            setEditPostTitle: action,
+            setEditPostBody: action,
+            editOnePost: action,
             
         })
     }
@@ -52,11 +55,6 @@ class PostsStore {
         done: false
     }
 
-    setAddPost = ( {name, value } ) => {
-        runInAction(() => {
-            this.addPost = { ...this.addPost, [name]:value}
-        })
-    }
 
     setAddPostTitle = ( { value } ) => {
         runInAction(() => {
@@ -93,6 +91,7 @@ class PostsStore {
         body: '',
         done: false
     }
+    
 
     getOnePost = (id) => {
         axios.get(`http://localhost:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
@@ -110,6 +109,54 @@ class PostsStore {
             .catch(function (error) {
                 alert('Что-то пошло не так')
         })
+    }
+
+    //Редактирование поста
+
+    setEditPostTitle = ( { value } ) => {
+        runInAction(() => {
+            this.onePost.title =  value
+        })
+    }
+    setEditPostBody = ( { value } ) => {
+        runInAction(() => {
+            this.onePost.body =  value
+        })
+    }
+
+    editOnePost = () => {
+
+        axios.put(`http://localhost:3000/api/tasks/${this.editPostID}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`, this.onePost)
+            .then( (response) => {
+                    
+                    console.log(response);
+                    this.getPosts()  
+            
+            })
+            .catch(function (error) {
+                alert('Что-то пошло не так')
+        })
+
+
+    }
+
+
+
+
+    //функция удаления постов
+    delPost = (id) => {
+
+        axios.delete(`http://localhost:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+        .then( (response) => {
+
+                console.log(response);
+                console.log(response.status);
+                this.getPosts()    
+
+        })
+        .catch(function (error) {
+            alert('Что-то пошло не так')
+        });
     }
 }
 

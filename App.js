@@ -17,53 +17,10 @@ function App() {
 
 
   return (
-    
-    
-
       <Navigate />
-
-/*
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.topMenu}>
-          <Text style={styles.topMenuText}>Шапка</Text>
-        </View>
-
-        <PostForm />
-        
-
-
-        <PostList postArr={PostsStore.posts} />
-        <StatusBar style="auto" />
-      </ScrollView>
-    </SafeAreaView>  
-*/
-
-    
-
-
   );
 }
 
 export default observer(App);
 
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  topMenu: {
-    backgroundColor: '#66a981',
-    padding: 22,
-  },
-  topMenuText: {
-    color: '#fff',
-    fontSize: 17,
-    textAlign: 'center',
-    justifyContent: 'center',
-  },
-});

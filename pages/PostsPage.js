@@ -14,7 +14,10 @@ const PostsPage = ( { navigation } ) => {
 
     return (
         <View style={styles.container}>
-            <Button title ="Добавить пост" onPress = {loadScene} />
+            <View style={styles.btn}>
+                <Button title ="Добавить пост" onPress = {loadScene} />
+            </View>
+            
 
             <PostList postArr={PostsStore.posts} navigation={navigation}/>
         </View>
@@ -29,5 +32,7 @@ const styles = StyleSheet.create({
     container: {
         margin: 20,
     },
-    
+    btn: {
+        marginBottom:30,
+    }
   });

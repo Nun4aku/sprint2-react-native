@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
 import PostsStore from '../src/store//PostsStore';
+import { toJS } from "mobx";
 
 const EditPage = ( { navigation } ) => {
 
@@ -15,6 +16,12 @@ const EditPage = ( { navigation } ) => {
                 style={styles.input}
                 name = 'title'
                 value = {PostsStore.onePost.title}
+                onChange={
+                    (e) => {
+                        PostsStore.setEditPostTitle(e.target)
+                        console.log(toJS(PostsStore.onePost))
+                    }
+                }
             />
             <TextInput 
                 multiline={true}
@@ -22,6 +29,21 @@ const EditPage = ( { navigation } ) => {
                 style={styles.input}
                 name = 'body'
                 value = {PostsStore.onePost.body}
+                onChange={
+                    (e) => {
+                        PostsStore.setEditPostBody(e.target)
+                        console.log(toJS(PostsStore.onePost))
+                    }
+                }
+            />
+            <Button 
+                title="Изменить" 
+                onPress={
+                    () => {
+                        PostsStore.editOnePost()
+                        navigation.goBack()
+                    }
+                }
             />
             
         </View>
