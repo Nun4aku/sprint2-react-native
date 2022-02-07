@@ -5,6 +5,7 @@ import { observable, action, runInAction, computed} from 'mobx';
 import { observer } from 'mobx-react';
 import PostService from '../API/PostService';
 import axios from 'axios';
+import UserStore from './UserStore';
 
 
 class PostsStore {
@@ -72,10 +73,14 @@ class PostsStore {
 
 
     //функция добавления постов
-    addPostFunction = async () => {
+    addPostFunction = async ( {valueTitle, valueBody} ) => {
+
+        console.log(valueTitle)
+        console.log(valueBody)
+
         console.log(toJS(this.addPost))
 
-        
+        /*
         await PostService.addPost(this.addPost)
 
         runInAction( async () => {
@@ -83,6 +88,7 @@ class PostsStore {
         })
         
         this.getPosts()
+        */
     }
 
 
@@ -97,7 +103,7 @@ class PostsStore {
     
 
     getOnePost = (id) => {
-        axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+        axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
             .then( (response) => {
                     
                     console.log(response);
@@ -129,7 +135,7 @@ class PostsStore {
 
     editOnePost = () => {
 
-        axios.put(`http://176.196.2.67:3000/api/tasks/${this.editPostID}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`, this.onePost)
+        axios.put(`http://176.196.2.67:3000/api/tasks/${this.editPostID}?access_token=${UserStore.Token}`, this.onePost)
             .then( (response) => {
                     
                     console.log(response);
@@ -144,12 +150,10 @@ class PostsStore {
     }
 
 
-
-
     //функция удаления постов
     delPost = (id) => {
 
-        axios.delete(`http://176.196.2.67:3000/api/tasks/${id}?access_token=2LFM4hdieZb4fIQfD7zMlOg8n2eME05gNwbswm1Fr6BAnbY4v7yl5APk7iPpAqCv`)
+        axios.delete(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
         .then( (response) => {
 
                 console.log(response);

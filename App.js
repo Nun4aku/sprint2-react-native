@@ -6,6 +6,7 @@ import PostsStore from './src/store/PostsStore';
 import { toJS } from 'mobx';
 
 import Navigate from './navigate';
+import Home from './pages/Home';
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
 
 
   return (
-      <Navigate />
+      <Home />
   );
 }
 

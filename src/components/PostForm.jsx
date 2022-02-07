@@ -11,12 +11,10 @@ import { NavigationContainer } from "@react-navigation/native";
 
 const PostForm = ( {navigation} ) => {
 
-    const [text, setValue] = useState('')
+    
 
-    const loadScene = () => {
-        //PostsStore.addPostFunction()
-        //navigation.navigate('Posts')
-    }
+    const [valueTitle, onChangeTextTitle] = useState('Title');
+    const [valueBody, onChangeTextBody] = useState('Body');
 
 
     return (
@@ -25,7 +23,7 @@ const PostForm = ( {navigation} ) => {
                 style={styles.input}
                 placeholder='название поста'
                 name = 'title'
-                //value = {PostsStore.addPost.title}
+                value = {PostsStore.addPost.title}
                 onChange = { (e) => PostsStore.setAddPostTitle( e.target ) }
             />
             
@@ -36,6 +34,7 @@ const PostForm = ( {navigation} ) => {
 
                 name = 'body'
                 placeholder='текст поста'
+                value = {PostsStore.addPost.body}
                 onChange = { (e) => PostsStore.setAddPostBody( e.target ) }
                
             />
@@ -46,8 +45,8 @@ const PostForm = ( {navigation} ) => {
                 onPress = { 
                     (e) => {
                         e.preventDefault()
-                        PostsStore.addPostFunction()
-                        navigation.goBack()
+                        PostsStore.addPostFunction(valueTitle, valueBody)
+                        //navigation.goBack()
                     }
                  }
             />

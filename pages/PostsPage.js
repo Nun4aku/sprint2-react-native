@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, SafeAreaView} from 'react-native';
 import { observer } from 'mobx-react';
 import PostList from '../src/components/PostList';
 import PostsStore from '../src/store/PostsStore';
@@ -12,14 +12,14 @@ const PostsPage = ( { navigation } ) => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.btn}>
                 <Button title ="Добавить пост" onPress = {loadScene} />
             </View>
             
 
             <PostList postArr={PostsStore.posts} navigation={navigation}/>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -30,6 +30,7 @@ export default observer (PostsPage);
 const styles = StyleSheet.create({
     container: {
         margin: 20,
+        marginBottom: 100,
     },
     btn: {
         marginBottom:30,

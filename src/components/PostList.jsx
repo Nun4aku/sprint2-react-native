@@ -11,7 +11,7 @@ const PostList =  ( {postArr, navigation} ) => {
 
     
     return (
-        <View style={styles.container}>
+       
             
             <FlatList 
                 data={postArr} 
@@ -45,7 +45,7 @@ const PostList =  ( {postArr, navigation} ) => {
                                     )
                 } 
             />
-        </View>
+        
   )
 }
 
