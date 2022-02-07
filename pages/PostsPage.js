@@ -13,8 +13,7 @@ const PostsPage = ( { navigation } ) => {
         PostsStore.getPosts()
 
     },[])
-    
-    console.log(PostsStore.posts)
+
     
     const loadScene = () => {
         navigation.navigate('AddPost')

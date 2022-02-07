@@ -13,18 +13,17 @@ const PostForm = ( {navigation} ) => {
 
     
 
-    const [valueTitle, onChangeTextTitle] = useState('Title');
-    const [valueBody, onChangeTextBody] = useState('Body');
+    const [title, onChangeTitle] = useState('');
+    const [body, onChangeBody] = useState('');
 
 
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder='название поста'
-                name = 'title'
-                value = {PostsStore.addPost.title}
-                onChange = { (e) => PostsStore.setAddPostTitle( e.target ) }
+                
+                onChangeText={onChangeTitle}
+                value={title}
             />
             
             <TextInput
@@ -32,12 +31,10 @@ const PostForm = ( {navigation} ) => {
                 numberOfLines={10}
                 multiline={true}
 
-                name = 'body'
-                placeholder='текст поста'
-                value = {PostsStore.addPost.body}
-                onChange = { (e) => PostsStore.setAddPostBody( e.target ) }
-               
+                onChangeText={onChangeBody}
+                value={body}
             />
+   
             <Button
                 color="#62ad80"
                 style = {styles.button} 
@@ -45,8 +42,8 @@ const PostForm = ( {navigation} ) => {
                 onPress = { 
                     (e) => {
                         e.preventDefault()
-                        PostsStore.addPostFunction(valueTitle, valueBody)
-                        //navigation.goBack()
+                        PostsStore.addPostFunction(title, body)
+                        navigation.goBack()
                     }
                  }
             />

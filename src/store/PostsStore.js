@@ -19,12 +19,8 @@ class PostsStore {
 
             getPosts: action,
             addPostFunction: action,
-            setAddPostTitle: action,
-            setAddPostBody: action,
             getOnePost: action,
             delPost: action,
-            setEditPostTitle: action,
-            setEditPostBody: action,
             editOnePost: action,
             
         })
@@ -39,7 +35,7 @@ class PostsStore {
         try {
                 const res = await PostService.getAll()
                 runInAction( () => {
-                    this.posts = res
+                    this.posts = res.sort( (a,b) => b['id']-a['id'] )
                 })
         }
         finally {
@@ -59,27 +55,13 @@ class PostsStore {
     }
 
 
-    setAddPostTitle = ( { value } ) => {
-        runInAction(() => {
-            this.addPost.title =  value
-        })
-    }
-    setAddPostBody = ( { value } ) => {
-        runInAction(() => {
-            this.addPost.body =  value
-        })
-    }
-
 
     //функция добавления постов
-    addPostFunction = async ( {valueTitle, valueBody} ) => {
+    addPostFunction = async ( title, body ) => {
 
-        console.log(valueTitle)
-        console.log(valueBody)
+        this.addPost.title = title
+        this.addPost.body = body
 
-        console.log(toJS(this.addPost))
-
-        /*
         await PostService.addPost(this.addPost)
 
         runInAction( async () => {
@@ -87,7 +69,7 @@ class PostsStore {
         })
         
         this.getPosts()
-        */
+        
     }
 
 
@@ -101,8 +83,8 @@ class PostsStore {
     }
     
 
-    getOnePost = (id) => {
-        axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
+    getOnePost = async (id) => {
+        await axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
             .then( (response) => {
                     
                     console.log(response);
@@ -121,19 +103,13 @@ class PostsStore {
 
     //Редактирование поста
 
-    setEditPostTitle = ( { value } ) => {
-        runInAction(() => {
-            this.onePost.title =  value
-        })
-    }
-    setEditPostBody = ( { value } ) => {
-        runInAction(() => {
-            this.onePost.body =  value
-        })
-    }
 
-    editOnePost = () => {
+    editOnePost = (title, body) => {
 
+        this.onePost.title =  title
+        this.onePost.body =  body
+        console.log(toJS(this.onePost))
+        
         axios.put(`http://176.196.2.67:3000/api/tasks/${this.editPostID}?access_token=${UserStore.Token}`, this.onePost)
             .then( (response) => {
                     
@@ -144,7 +120,7 @@ class PostsStore {
             .catch(function (error) {
                 alert('Что-то пошло не так')
         })
-
+        
 
     }
 

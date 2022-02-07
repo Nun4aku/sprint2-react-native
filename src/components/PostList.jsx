@@ -9,6 +9,7 @@ import PostsStore from '../store/PostsStore';
 
 const PostList =  ( {postArr, navigation} ) => {
 
+    postArr
     
     return (
 
@@ -19,10 +20,11 @@ const PostList =  ( {postArr, navigation} ) => {
                                         <TouchableOpacity
                                             key={item.id}
                                             onPress={ 
-                                                () => { 
-                                                        navigation.navigate('EditPage')
+                                                async () => { 
+                                                        
                                                         PostsStore.editPostID = item.id
-                                                        PostsStore.getOnePost(item.id)
+                                                        await PostsStore.getOnePost(item.id)
+                                                        navigation.navigate('EditPage')
                                                 }
                                             }
                                         >
