@@ -5,23 +5,23 @@ import EditPage from './EditPage';
 import LoginPage from './LoginPage';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Button } from 'react-native';
 
-//import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import UserStore from "../src/store/UserStore";
 import { observer } from 'mobx-react';
 
-//const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
 
 function Home() {
     return (
         <NavigationContainer>
-                <Drawer.Navigator>
+                <Stack.Navigator>
                 {
                     UserStore.isAuth ? (
                         <>
-                            <Drawer.Screen
+                            <Stack.Screen
                                 name="PostsPage"
                                 component={PostsPage}
                                 options={ 
@@ -42,23 +42,12 @@ function Home() {
                                                                 }
                                                             />
                                                         </View>
-                                                        <View style={styles.btn}>
-                                                            <Button
-                                                                color="#80bb97"
-                                                                title="logout"
-                                                                onPress={
-                                                                    () => {
-                                                                        navigation.openDrawer();
-                                                                    }
-                                                                }
-                                                            />
-                                                        </View>
                                                     </>
                                                 ),
                                             }
                                 }
                             />
-                            <Drawer.Screen
+                            <Stack.Screen
                                 name="AddPost"
                                 component={AddPost}
                                 options={ 
@@ -69,7 +58,7 @@ function Home() {
                                             }
                                 }
                             />
-                            <Drawer.Screen
+                            <Stack.Screen
                                 name="EditPage"
                                 component={EditPage}
                                 options={ 
@@ -83,7 +72,7 @@ function Home() {
                         </>
                     ) : (
                         <>
-                            <Drawer.Screen
+                            <Stack.Screen
                                 name="LoginPage"
                                 component={ LoginPage }
                                 options={ 
@@ -97,7 +86,7 @@ function Home() {
                         </>
                     )
                 }
-                </Drawer.Navigator>
+                </Stack.Navigator>
         </NavigationContainer>
     )
 }

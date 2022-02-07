@@ -7,14 +7,39 @@ import PostsStore from '../store/PostsStore';
 
 
 
-const PostList =  ( {postArr, navigation} ) => {
+const PostList =  ( { navigation } ) => {
 
-    postArr
+    console.log(PostsStore.posts)
     
     return (
+        <>
+            <Button
+                title="sort"
+                onPress={
+                    () => {
+                        PostsStore.sortPostId()
+                    }
+                }
+            />
+            <Button
+                title="sort"
+                onPress={
+                    () => {
+                        PostsStore.sortPostIdRev()
+                    }
+                }
+            />
+        
+            {
+                PostsStore.posts.map ( item => {
+
+                    <Text key = {item.id} >{item.id}</Text>
+                })
+            }
 
             <FlatList 
-                data={postArr} 
+                data={toJS(PostsStore.posts)}
+                keyExtractor={item => item.id}
                 renderItem={ 
                     ( {item} )  => (
                                         <TouchableOpacity
@@ -46,11 +71,11 @@ const PostList =  ( {postArr, navigation} ) => {
                                     )
                 } 
             />
-        
+        </>
   )
 }
 
-export default observer (PostList);
+export default observer(PostList);
 
 
 

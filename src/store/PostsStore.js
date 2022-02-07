@@ -22,13 +22,30 @@ class PostsStore {
             getOnePost: action,
             delPost: action,
             editOnePost: action,
+            sortPostId: action,
+            sortPostIdRev: action,
             
         })
     }
 
     posts = [];
-    post
+
     
+    //функция сортировки постов
+    sortPostId = () => {
+        runInAction( () => {
+            this.posts.sort( (a,b) => b['id']-a['id'] )
+            console.log(toJS(this.posts))
+        })
+    }
+    sortPostIdRev = ( sortSelect ) => {
+        runInAction( () => {
+            this.posts.sort( (a,b) => a['id']-b['id'] )
+            console.log(toJS(this.posts))
+        })
+    }
+
+
     //функция получения постов с Бэка
     async getPosts() {
 

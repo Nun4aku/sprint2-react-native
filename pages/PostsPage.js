@@ -20,6 +20,7 @@ const PostsPage = ( { navigation } ) => {
     }
 
     return (
+
         <SafeAreaView style={styles.container}>
             <View style={styles.btn}>
                 <Button 
@@ -28,13 +29,13 @@ const PostsPage = ( { navigation } ) => {
                     onPress = {loadScene} />
             </View>
             
-    
-            <PostList postArr={PostsStore.posts} navigation={navigation}/>
+
+            <PostList navigation={navigation}/>
         </SafeAreaView>
     )
 }
 
-export default observer (PostsPage);
+export default observer(PostsPage);
 
 
 
