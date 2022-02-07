@@ -11,8 +11,7 @@ const PostList =  ( {postArr, navigation} ) => {
 
     
     return (
-       
-            
+
             <FlatList 
                 data={postArr} 
                 renderItem={ 

@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, SafeAreaView} from 'react-native';
 import { observer } from 'mobx-react';
 import PostList from '../src/components/PostList';
 import PostsStore from '../src/store/PostsStore';
 import EditPage from './EditPage';
+import UserStore from "../src/store/UserStore";
 
 const PostsPage = ( { navigation } ) => {
 
+    useEffect( () => {
+        
+        PostsStore.getPosts()
+
+    },[])
+    
+    console.log(PostsStore.posts)
+    
     const loadScene = () => {
         navigation.navigate('AddPost')
     }
@@ -14,10 +23,13 @@ const PostsPage = ( { navigation } ) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.btn}>
-                <Button title ="Добавить пост" onPress = {loadScene} />
+                <Button 
+                    color='#80bb97'
+                    title ="Добавить пост" 
+                    onPress = {loadScene} />
             </View>
             
-
+    
             <PostList postArr={PostsStore.posts} navigation={navigation}/>
         </SafeAreaView>
     )

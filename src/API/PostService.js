@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toJS } from "mobx";
+import UserStore from "../store/UserStore";
 export default class PostService {
     
 
@@ -38,6 +39,16 @@ export default class PostService {
         }
     }
 
+    static  logout = async () => {
+
+        try {
+            await axiosOptions().post('Users/logout', UserStore.Token)
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
 }
 
 
@@ -46,7 +57,7 @@ function axiosOptions () {
     const instance = axios.create({
         //baseURL: 'http://localhost:3000/api/',
         baseURL: 'http://176.196.2.67:3000/api/',
-        headers: {'access_token': 'qmr9XsxxkcEVE4iJ04Hpnw9nUyD6p3HNqijC5l6pWkhKSg1sVMxg9prnq6XlR6PH'}
+        headers: {'access_token': UserStore.Token}
     });
 
     return instance;

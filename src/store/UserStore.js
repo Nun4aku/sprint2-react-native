@@ -13,11 +13,8 @@ class UserStore {
             user: observable,
             Token: observable,
 
-
             login: action,
             logout: action,
-            setUserEmail: action,
-            setUserPassword: action,
         }) 
     }
 
@@ -29,66 +26,32 @@ class UserStore {
         password: "12345678"
     }
 
-
-    setUserEmail = ( { value } ) => {
-        runInAction(() => {
-            this.user.email = value
-        })
-    }
-    setUserPassword = ( { value } ) => {
-        runInAction(() => {
-            this.user.password =  value
-        })
-    }
-
-
-
     login = async (email, password) => {
         
-
         this.user.email = email
         this.user.password = password
 
         const res = await PostService.login(this.user)
         
-        runInAction( () => {
-            this.Token = res
-            this.isAuth = true
-        })
-        console.log(this.Token)
-        
-
-        /*
-        axios.post('http://localhost:3000/api/Users/login', this.user)
-        .then( (response) => {
-
-                console.log(this.user)
-                console.log(response);
-                console.log(response.data.id);
-                
-                runInAction(() => {
-                    this.isAuth = true;
-                    this.Token = response.data.id;
-                })
-                console.log(`this.isAuth = ${this.isAuth}`);
-                console.log(`this.Token = ${this.Token}`);
-                
-        })
-        .catch(function (error) {
-            alert('Не правильный логин или пароль')
-        });
-      */  
-        
+        if(res) {
+            runInAction( () => {
+                this.Token = res
+                this.isAuth = true
+            })
+            console.log(this.Token)
+        }else {
+            alert('Логин или пароль не верны')
+        }   
     }
 
-    logout = () => {   
-        axios.post(`http://176.196.2.67:3000/api/Users/logout?access_token=${this.Token}`)
-        localStorage.removeItem('auth')
-        localStorage.removeItem('access_token')
+    logout = async() => {  
+        
+        await PostService.logout()
+    
         runInAction(() => {
             this.isAuth = false;
+            this.Token = ''
         })
-        console.log(`this.isAuth = ${this.isAuth}`);
     }
 
 }

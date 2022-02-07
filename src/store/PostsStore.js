@@ -39,7 +39,6 @@ class PostsStore {
         try {
                 const res = await PostService.getAll()
                 runInAction( () => {
-                    
                     this.posts = res
                 })
         }

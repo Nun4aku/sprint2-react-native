@@ -3,7 +3,7 @@ import PostsPage from "./PostsPage";
 import AddPost from "./AddPost";
 import EditPage from './EditPage';
 import LoginPage from './LoginPage';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Button } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
@@ -26,7 +26,22 @@ function Home() {
                                             { 
                                                 title: 'Все посты',
                                                 headerStyle: { backgroundColor: '#62ad80' },
-                                                headerTitleStyle: { color: '#fff'}
+                                                headerTitleStyle: { color: '#fff'},
+                                                headerRight: () => (
+                                                    <>
+                                                        <View style={styles.btn}>
+                                                            <Button
+                                                                color="#80bb97"
+                                                                title="logout"
+                                                                onPress={
+                                                                    () => {
+                                                                        UserStore.logout()
+                                                                    }
+                                                                }
+                                                            />
+                                                        </View>
+                                                    </>
+                                                ),
                                             }
                                 }
                             />
@@ -81,5 +96,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
     },
-    
+    btn: {
+        marginHorizontal: 15,
+    },
   });

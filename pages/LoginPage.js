@@ -35,7 +35,8 @@ const LoginPage = ( {navigation} ) => {
                 value={password}
                
             />
-            <Button 
+            <Button
+                color='#80bb97'
                 title="Login"
                 onPress={
                     () => {

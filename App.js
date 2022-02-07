@@ -10,15 +10,7 @@ import Home from './pages/Home';
 
 function App() {
 
-  useEffect( () => {
-    /*
-    setTimeout ( async() => {
-      PostsStore.getPosts()
-    }, 1000)
-    */
-    PostsStore.getPosts()
-
-  },[])
+  
 
 
   return (
