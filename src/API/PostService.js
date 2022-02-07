@@ -26,6 +26,42 @@ export default class PostService {
         }
     }
 
+    static  getOnePost = async (id) => {
+
+        try {
+            const response = await axiosOptions().get(`tasks/${id}`)
+            return response.data
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    static  editOnePost = async (onePost, id) => {
+
+        try {
+            const response = await axiosOptions().put(`tasks/${id}`, onePost)
+            //return response.data
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+
+    static  delPost = async (id) => {
+
+        try {
+            const response = await axiosOptions().delete(`tasks/${id}`)
+            //return response.data
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    
+
 
     static  login = async (user) => {
 
@@ -49,6 +85,8 @@ export default class PostService {
         }
     }
 
+
+
 }
 
 
@@ -62,3 +100,4 @@ function axiosOptions () {
 
     return instance;
 }
+

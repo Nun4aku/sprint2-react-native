@@ -77,6 +77,7 @@ class PostsStore {
     editPostID = ''
 
     onePost = {
+        id: '',
         title: '',
         body: '',
         done: false
@@ -84,6 +85,17 @@ class PostsStore {
     
 
     getOnePost = async (id) => {
+
+        const res = await PostService.getOnePost(id)
+
+        console.log(res)
+        if (res.id == id) {
+            runInAction( async () => {
+                this.onePost = res
+            })
+        }
+
+        /*
         await axios.get(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
             .then( (response) => {
                     
@@ -99,17 +111,22 @@ class PostsStore {
             .catch(function (error) {
                 alert('Что-то пошло не так')
         })
+        */
     }
 
     //Редактирование поста
 
-
-    editOnePost = (title, body) => {
+    editOnePost = async (title, body) => {
 
         this.onePost.title =  title
         this.onePost.body =  body
         console.log(toJS(this.onePost))
+        console.log(this.onePost.id)
         
+        await PostService.editOnePost(this.onePost, this.onePost.id)
+        await this.getPosts()
+
+        /*
         axios.put(`http://176.196.2.67:3000/api/tasks/${this.editPostID}?access_token=${UserStore.Token}`, this.onePost)
             .then( (response) => {
                     
@@ -120,14 +137,18 @@ class PostsStore {
             .catch(function (error) {
                 alert('Что-то пошло не так')
         })
-        
+        */
 
     }
 
 
     //функция удаления постов
-    delPost = (id) => {
+    delPost = async (id) => {
 
+        await PostService.delPost(id)
+        await this.getPosts()
+
+        /*
         axios.delete(`http://176.196.2.67:3000/api/tasks/${id}?access_token=${UserStore.Token}`)
         .then( (response) => {
 
@@ -139,6 +160,7 @@ class PostsStore {
         .catch(function (error) {
             alert('Что-то пошло не так')
         });
+        */
     }
 }
 
