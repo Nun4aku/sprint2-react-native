@@ -13,8 +13,6 @@ const LoginPage = ( {navigation} ) => {
 
     return (
         <View style={styles.container}>
-            <Text>LoginPage</Text>
-
             <TextInput
                 style={styles.input}
                 placeholder='введите email'
@@ -56,7 +54,11 @@ export default observer (LoginPage);
 
 const styles = StyleSheet.create({
     container: {
+        flex:1,
         padding: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     input: {
         backgroundColor: '#fff',
@@ -67,5 +69,6 @@ const styles = StyleSheet.create({
         borderColor: '#dfdfdf',
         borderStyle: 'solid',
         borderRadius: 10,
+        alignSelf: 'stretch'
     },
   });

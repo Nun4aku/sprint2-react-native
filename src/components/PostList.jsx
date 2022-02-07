@@ -13,29 +13,33 @@ const PostList =  ( { navigation } ) => {
     
     return (
         <>
-            <Button
-                title="sort"
-                onPress={
-                    () => {
-                        PostsStore.sortPostId()
-                    }
-                }
-            />
-            <Button
-                title="sort"
-                onPress={
-                    () => {
-                        PostsStore.sortPostIdRev()
-                    }
-                }
-            />
+            <View style={styles.sortbox}>
+                <View style={styles.sortBtn}>
+                    <Button
+                        color='#80bb97'
+                        title="ID ↑"
+                        onPress={
+                            () => {
+                                PostsStore.sortPostId()
+                            }
+                        }
+                    />
+                </View>
+                <View style={styles.sortBtn}>
+                    <Button
+                        color='#80bb97'
+                        title="ID ↓"
+                        onPress={
+                            () => {
+                                PostsStore.sortPostIdRev()
+                            }
+                        }
+                    />
+                </View>
+            </View>
+            
         
-            {
-                PostsStore.posts.map ( item => {
-
-                    <Text key = {item.id} >{item.id}</Text>
-                })
-            }
+            
 
             <FlatList 
                 data={toJS(PostsStore.posts)}
@@ -104,4 +108,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'justify',
     },
+    sortbox: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    sortBtn: {
+        paddingRight: 10,
+        paddingBottom: 5,
+    }
   });
