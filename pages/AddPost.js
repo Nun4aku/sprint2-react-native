@@ -14,6 +14,7 @@ const AddPost = ( {navigation} ) => {
 export default observer (AddPost);
 
 
+
 const styles = StyleSheet.create({
     container: {
         margin: 20,
