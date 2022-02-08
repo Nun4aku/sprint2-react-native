@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
-import PostsStore from '../src/store//PostsStore';
+import PostsStore from '../src/store/PostsStore';
 import { toJS } from "mobx";
 
 const EditPage = ( { navigation } ) => {

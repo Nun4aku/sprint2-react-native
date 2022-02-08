@@ -14,7 +14,7 @@ import { observer } from 'mobx-react';
 const Stack = createStackNavigator();
 
 
-function Home() {
+function Home(): JSX.Element {
     return (
         <NavigationContainer>
                 <Stack.Navigator>

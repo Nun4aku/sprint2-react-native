@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { JSXElementConstructor, useEffect }from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { observer } from 'mobx-react';
@@ -8,13 +8,18 @@ import { toJS } from 'mobx';
 import Navigate from './navigate';
 import Home from './pages/Home';
 
-function App() {
 
 
-  return (
+
+function App(): JSX.Element {
+
+  return(
+    <>
       <Home />
+    </>
   );
 }
+
 
 export default observer(App);
 
