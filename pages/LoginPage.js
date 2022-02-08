@@ -2,10 +2,9 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
 import UserStore from '../src/store/UserStore';
-import { toJS } from "mobx";
-import { useNavigation } from '@react-navigation/native';
 
-const LoginPage = ( {navigation} ) => {
+
+const LoginPage = () => {
 
 
     const [email, onChangeEmail] = React.useState(UserStore.user.email);
@@ -17,8 +16,6 @@ const LoginPage = ( {navigation} ) => {
                 style={styles.input}
                 placeholder='введите email'
                 name = 'email'
-                //value = { UserStore.user.email }
-                //onChange = { (e) => UserStore.setUserEmail(e.target)}
                 onChangeText={onChangeEmail}
                 value={email}
             />
@@ -27,8 +24,6 @@ const LoginPage = ( {navigation} ) => {
                 style={styles.input}
                 name = 'password'
                 placeholder='введите пароль'
-                //value = { UserStore.user.password }
-                //onChange = { (e) => UserStore.setUserPassword(e.target) }
                 onChangeText={onChangePassword}
                 value={password}
                
@@ -39,7 +34,6 @@ const LoginPage = ( {navigation} ) => {
                 onPress={
                     () => {
                         UserStore.login(email, password)
-                        //navigation.navigate('PostsPage')
                     }
                 }
             />

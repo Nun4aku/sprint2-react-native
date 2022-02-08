@@ -42,7 +42,6 @@ const EditPage = ( { navigation } ) => {
                     }
                 }
             />
-            
         </View>
     )
 }

@@ -61,8 +61,6 @@ export default class PostService {
     }
 
     
-
-
     static  login = async (user) => {
 
         try {
@@ -84,8 +82,6 @@ export default class PostService {
             console.log(e);
         }
     }
-
-
 
 }
 

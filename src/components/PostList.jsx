@@ -8,8 +8,6 @@ import PostsStore from '../store/PostsStore';
 
 
 const PostList =  ( { navigation } ) => {
-
-    console.log(PostsStore.posts)
     
     return (
         <>
@@ -37,9 +35,6 @@ const PostList =  ( { navigation } ) => {
                     />
                 </View>
             </View>
-            
-        
-            
 
             <FlatList 
                 data={toJS(PostsStore.posts)}

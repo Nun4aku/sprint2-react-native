@@ -7,13 +7,11 @@ const AddPost = ( {navigation} ) => {
     return (
         <View style={styles.container}>
             <PostForm navigation={navigation}/>
-            
         </View>
     )
 }
 
 export default observer (AddPost);
-
 
 
 const styles = StyleSheet.create({

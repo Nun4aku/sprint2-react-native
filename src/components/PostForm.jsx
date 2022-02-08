@@ -4,8 +4,6 @@ import { StyleSheet, Text, View, SafeAreaView, Button, TextInput } from 'react-n
 import PostsStore from "../store/PostsStore";
 import { observer } from 'mobx-react';
 
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from "@react-navigation/native";
 
 
 
