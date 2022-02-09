@@ -6,7 +6,6 @@ import UserStore from '../src/store/UserStore';
 
 const LoginPage = () => {
 
-
     const [email, onChangeEmail] = React.useState(UserStore.user.email);
     const [password, onChangePassword] = React.useState(UserStore.user.password);
 
@@ -15,14 +14,12 @@ const LoginPage = () => {
             <TextInput
                 style={styles.input}
                 placeholder='введите email'
-                name = 'email'
                 onChangeText={onChangeEmail}
                 value={email}
             />
             
             <TextInput
                 style={styles.input}
-                name = 'password'
                 placeholder='введите пароль'
                 onChangeText={onChangePassword}
                 value={password}
@@ -37,13 +34,11 @@ const LoginPage = () => {
                     }
                 }
             />
-            
         </View>
     )
 }
 
 export default observer (LoginPage);
-
 
 
 const styles = StyleSheet.create({

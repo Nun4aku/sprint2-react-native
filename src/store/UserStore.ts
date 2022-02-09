@@ -16,15 +16,15 @@ class UserStore {
         }) 
     }
 
-    isAuth = false
-    Token = ''
+    isAuth: boolean = false
+    Token: string = ''
 
     user = {
         email: "nun2@gmail.com",
         password: "12345678"
     }
 
-    login = async (email, password) => {
+    login = async (email: string, password: string) => {
         
         this.user.email = email
         this.user.password = password

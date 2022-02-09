@@ -3,17 +3,16 @@ import { StyleSheet, Text, View, SafeAreaView, Button, TextInput } from 'react-n
 
 import PostsStore from "../store/PostsStore";
 import { observer } from 'mobx-react';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-
-const PostForm = ( {navigation} ) => {
-
-    
+const PostForm = () => {
 
     const [title, onChangeTitle] = useState('');
     const [body, onChangeBody] = useState('');
-
+    const navigation = useNavigation();
+    
 
     return (
         <View style={styles.container}>
@@ -28,14 +27,12 @@ const PostForm = ( {navigation} ) => {
                 style={styles.input}
                 numberOfLines={10}
                 multiline={true}
-
                 onChangeText={onChangeBody}
                 value={body}
             />
    
             <Button
                 color="#62ad80"
-                style = {styles.button} 
                 title="Создать пост"
                 onPress = { 
                     (e) => {
@@ -45,7 +42,6 @@ const PostForm = ( {navigation} ) => {
                     }
                  }
             />
-            
         </View>
     )
 }

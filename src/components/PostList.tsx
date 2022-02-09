@@ -1,28 +1,22 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import PostsStore from '../store/PostsStore';
+import { useNavigation } from '@react-navigation/native';
+import type { addPostInterface, onePostInterface } from '../store/InterfaceStore';
 
 
 
-const PostList =  ( { navigation } ) => {
+const PostList =  ():JSX.Element => {
+
+    const navigation = useNavigation();
+    const [search, SetSearch] = useState('')
     
     return (
         <>
             <View style={styles.sortbox}>
-                <View style={styles.sortBtn}>
-                    <Button
-                        color='#80bb97'
-                        title="ID ↑"
-                        onPress={
-                            () => {
-                                PostsStore.sortPostId()
-                            }
-                        }
-                    />
-                </View>
                 <View style={styles.sortBtn}>
                     <Button
                         color='#80bb97'
@@ -34,18 +28,41 @@ const PostList =  ( { navigation } ) => {
                         }
                     />
                 </View>
+                <View style={styles.sortBtn}>
+                    <Button
+                        color='#80bb97'
+                        title="ID ↑"
+                        onPress={
+                            () => {
+                                PostsStore.sortPostId()
+                            }
+                        }
+                    />
+                </View>
+                <View>
+                <TextInput 
+                    style = {styles.search}
+                    value = {PostsStore.searchQuery}
+                    onChange = { 
+                                    () => {
+                                        console.log(PostsStore.searchQuery)
+                                        PostsStore.total
+                                    } 
+                    }
+                    placeholder="search"
+                /> 
+                </View>
             </View>
 
             <FlatList 
-                data={toJS(PostsStore.posts)}
-                keyExtractor={item => item.id}
+                data={toJS(PostsStore.total)}
+                //keyExtractor={item => item.id}
                 renderItem={ 
-                    ( {item} )  => (
+                    ( {item}: {item: onePostInterface} ):JSX.Element  => (
                                         <TouchableOpacity
                                             key={item.id}
                                             onPress={ 
                                                 async () => { 
-                                                        
                                                         PostsStore.editPostID = item.id
                                                         await PostsStore.getOnePost(item.id)
                                                         navigation.navigate('EditPage')
@@ -94,7 +111,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ededed',
         borderStyle: 'solid',
         borderColor: '#dfdfdf',
-        borderStyle: 'solid',
         borderBottomWidth: 1,
         
     },
@@ -111,5 +127,12 @@ const styles = StyleSheet.create({
     sortBtn: {
         paddingRight: 10,
         paddingBottom: 5,
+    },
+    search: {
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingHorizontal: 15,
+        backgroundColor: '#fff',
+        width: 252,
     }
   });
