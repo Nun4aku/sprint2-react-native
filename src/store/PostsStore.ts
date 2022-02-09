@@ -14,6 +14,7 @@ class PostsStore {
             editPostID: observable,
             onePost: observable,
             searchQuery: observable,
+            sortOrderByID: observable,
 
             getPosts: action,
             addPostFunction: action,
@@ -32,16 +33,20 @@ class PostsStore {
 
     
     //функция сортировки постов
+    sortOrderByID = 'UP'
+
     sortPostId = () => {
         runInAction( () => {
             this.posts.sort( (a, b) => b['id']-a['id'] )
             console.log(toJS(this.posts))
+            this.sortOrderByID = 'UP'
         })
     }
     sortPostIdRev = () => {
         runInAction( () => {
             this.posts.sort( (a,b) => a['id']-b['id'] )
             console.log(toJS(this.posts))
+            this.sortOrderByID = 'DOWN'
         })
     }
 
@@ -139,6 +144,7 @@ class PostsStore {
         return this.posts.filter( post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
 
+    
 }
 
 

@@ -16,29 +16,45 @@ const PostList =  ():JSX.Element => {
     return (
         <>
             <View style={styles.sortbox}>
+                
+
                 <View style= {{flexDirection: 'row'}}>
-                    <View style={styles.sortBtn}>
-                        <Button
-                            color='#80bb97'
-                            title="ID ↓"
-                            onPress={
-                                () => {
-                                    PostsStore.sortPostIdRev()
-                                }
-                            }
-                        />
-                    </View>
-                    <View style={styles.sortBtn}>
-                        <Button
-                            color='#80bb97'
-                            title="ID ↑"
-                            onPress={
-                                () => {
-                                    PostsStore.sortPostId()
-                                }
-                            }
-                        />
-                    </View>
+
+                    {
+                        (PostsStore.sortOrderByID =='UP') ? 
+                        (
+                            <View style={styles.sortBtn}>
+                                <Button
+                                    color='#80bb97'
+                                    title="ID ↑"
+                                    onPress={
+                                        () => {
+                                            PostsStore.sortPostIdRev()
+                                        }
+                                    }
+                                />
+                            </View>
+                        ) 
+                        :
+                        (PostsStore.sortOrderByID =='DOWN') ? (
+                            <View style={styles.sortBtn}>
+                                <Button
+                                    color='#80bb97'
+                                    title="ID ↓"
+                                    onPress={
+                                        () => {
+                                            PostsStore.sortPostId()
+                                        }
+                                    }
+                                />
+                            </View>
+                        )
+                        : 
+                        (<View></View>)
+                        
+                    }
+
+                    
                 </View>
                 <View>
                     <TextInput 
