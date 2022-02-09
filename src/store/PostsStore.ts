@@ -22,12 +22,13 @@ class PostsStore {
             editOnePost: action,
             sortPostId: action,
             sortPostIdRev: action,
+            setSearchQuery: action,
 
             total: computed,
         })
     }
 
-    posts = [];
+    posts: onePostInterface[]= [];
 
     
     //функция сортировки постов
@@ -127,6 +128,12 @@ class PostsStore {
 
     //Поиск
     searchQuery = ''
+
+    setSearchQuery = (text: string) => {
+        runInAction( async () => {
+            this.searchQuery = text
+        })
+    }
 
     get total() {
         return this.posts.filter( post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))

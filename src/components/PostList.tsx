@@ -12,45 +12,44 @@ import type { addPostInterface, onePostInterface } from '../store/InterfaceStore
 const PostList =  ():JSX.Element => {
 
     const navigation = useNavigation();
-    const [search, SetSearch] = useState('')
     
     return (
         <>
             <View style={styles.sortbox}>
-                <View style={styles.sortBtn}>
-                    <Button
-                        color='#80bb97'
-                        title="ID ↓"
-                        onPress={
-                            () => {
-                                PostsStore.sortPostIdRev()
+                <View style= {{flexDirection: 'row'}}>
+                    <View style={styles.sortBtn}>
+                        <Button
+                            color='#80bb97'
+                            title="ID ↓"
+                            onPress={
+                                () => {
+                                    PostsStore.sortPostIdRev()
+                                }
                             }
-                        }
-                    />
-                </View>
-                <View style={styles.sortBtn}>
-                    <Button
-                        color='#80bb97'
-                        title="ID ↑"
-                        onPress={
-                            () => {
-                                PostsStore.sortPostId()
+                        />
+                    </View>
+                    <View style={styles.sortBtn}>
+                        <Button
+                            color='#80bb97'
+                            title="ID ↑"
+                            onPress={
+                                () => {
+                                    PostsStore.sortPostId()
+                                }
                             }
-                        }
-                    />
+                        />
+                    </View>
                 </View>
                 <View>
-                <TextInput 
-                    style = {styles.search}
-                    value = {PostsStore.searchQuery}
-                    onChange = { 
-                                    () => {
-                                        console.log(PostsStore.searchQuery)
-                                        PostsStore.total
-                                    } 
-                    }
-                    placeholder="search"
-                /> 
+                    <TextInput 
+                        style = {styles.search}
+                        value = {PostsStore.searchQuery}
+                        onChangeText = { (text) => {
+                            PostsStore.setSearchQuery(text)
+                            PostsStore.total
+                        }}
+                        placeholder="search"
+                    /> 
                 </View>
             </View>
 
@@ -121,6 +120,7 @@ const styles = StyleSheet.create({
     },
     sortbox: {
         display: 'flex',
+        justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -129,10 +129,9 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     search: {
-        paddingTop: 3,
-        paddingBottom: 3,
+        paddingVertical: 5,
         paddingHorizontal: 15,
         backgroundColor: '#fff',
-        width: 252,
+        width: 170,
     }
   });
