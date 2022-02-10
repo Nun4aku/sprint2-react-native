@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList, TextInput, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList, TextInput, Image, Modal} from 'react-native';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import PostsStore from '../store/PostsStore';
@@ -12,14 +12,14 @@ import type { addPostInterface, onePostInterface } from '../store/InterfaceStore
 const PostList =  ():JSX.Element => {
 
     const navigation = useNavigation();
-    
+    const [delModal, setDelModal] = useState(false)
+    const [postIdForModal, setPostIdForModal] = useState('')
+    const [postTitleForModal, setPostTitleForModal] = useState('')
+
     return (
         <>
             <View style={styles.sortbox}>
-                
-
                 <View style= {{flexDirection: 'row'}}>
-
                     {
                         (PostsStore.sortOrderByID =='UP') ? 
                         (
@@ -52,10 +52,9 @@ const PostList =  ():JSX.Element => {
                         : 
                         (<View></View>)
                         
-                    }
-
-                    
+                    } 
                 </View>
+
                 <View>
                     <TextInput 
                         style = {styles.search}
@@ -69,6 +68,7 @@ const PostList =  ():JSX.Element => {
                 </View>
             </View>
 
+            
             <FlatList 
                 data={toJS(PostsStore.total)}
                 //keyExtractor={item => item.id}
@@ -90,12 +90,12 @@ const PostList =  ():JSX.Element => {
                                                     <Text style = {styles.title}>{item.title}</Text>
                                                     <View>
                                                         {
-                                                            (item.done == false) ?
+                                                            (item.done == true) ?
                                                             (
                                                                 <TouchableOpacity 
                                                                     onPress={
                                                                             () => {
-                                                                                item.done = true
+                                                                                item.done = false
                                                                                 PostsStore.doOnePost(item.id, toJS(item))
                                                                             }
                                                                 }>
@@ -105,11 +105,11 @@ const PostList =  ():JSX.Element => {
                                                                     />
                                                                 </TouchableOpacity>
                                                             ) : 
-                                                            (item.done == true) ? (
+                                                            (item.done == false) ? (
                                                                 <TouchableOpacity 
                                                                     onPress={
                                                                             () => {
-                                                                                item.done = false
+                                                                                item.done = true
                                                                                 PostsStore.doOnePost(item.id, toJS(item))
                                                                             }
                                                                 }>
@@ -130,7 +130,9 @@ const PostList =  ():JSX.Element => {
                                                     title='удалить'
                                                     onPress={ 
                                                                 () => { 
-                                                                    PostsStore.delPost(item.id)
+                                                                    setDelModal(true)
+                                                                    setPostIdForModal(item.id)
+                                                                    setPostTitleForModal(item.title)
                                                                 }
                                                     }
                                                 />
@@ -139,6 +141,39 @@ const PostList =  ():JSX.Element => {
                                     )
                 } 
             />
+            <Modal 
+                visible = {delModal} 
+            >
+                <View style={styles.modal}>
+                    <Text style = {styles.title_modal}>Вы точно хоите удалить запись?</Text>
+                    <View style = {styles.id_title}>
+                        <Text >ID: {postIdForModal}</Text>
+                        <Text>Название: {postTitleForModal}</Text>
+                    </View>
+                    <View style = {styles.delBtn}>
+                        <View style = {styles.sortBtn}>
+                            <Button 
+                                color="#62ad80"
+                                title='удалить'
+                                onPress={ 
+                                            () => { 
+                                                PostsStore.delPost(postIdForModal)
+                                                setDelModal(false)
+                                            }
+                                }
+                            />
+                        </View>
+                        <View style = {styles.sortBtn}>
+                            <Button
+                                title='нет'
+                                color="#f16565"
+                                onPress={ () => setDelModal(false) }
+                            />
+                        </View>
+                    </View>
+                </View>
+                
+            </Modal>
         </>
   )
 }
@@ -148,19 +183,41 @@ export default observer(PostList);
 
 
 const styles = StyleSheet.create({
+    modal: {
+        flex:1,
+        padding: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        //alignItems: 'center',
+        backgroundColor: '#f2f2f2',
+    },
+    id_title:{
+        textAlign: 'left',
+        margin: 20,
+    },
+    delBtn: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
     post: {
         backgroundColor: '#fff',
         marginVertical: 5,
         paddingVertical: 20,
         paddingHorizontal: 20,
+        borderRadius: 10,
     },
     title: {
         paddingBottom: 5,
         paddingTop: 10,
         fontSize: 22,
         fontWeight: '500',
-        
-        
+    },
+    title_modal: {
+        paddingBottom: 5,
+        paddingTop: 10,
+        fontSize: 18,
+        fontWeight: '500',
     },
     body: {
         paddingBottom: 30,

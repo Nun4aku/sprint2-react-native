@@ -129,8 +129,8 @@ class PostsStore {
 
     //отметка "выполненно" поста
     doOnePost = async (id: string, item: onePostInterface) => {
-        console.log(id)
-        console.log(item)
+        // console.log(id)
+        // console.log(item)
         await PostService.doOnePost(id, item)
         await this.getPosts()
         
