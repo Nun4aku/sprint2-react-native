@@ -3,21 +3,21 @@ import { StyleSheet, Text, View, TouchableOpacity, Button, SafeAreaView} from 'r
 import { observer } from 'mobx-react';
 import PostList from '../src/components/PostList';
 import PostsStore from '../src/store/PostsStore';
-import EditPage from './EditPage';
-import UserStore from "../src/store/UserStore";
+import { StackNavigationProp } from '@react-navigation/stack';
+import type {RootStackParamList} from './Home';
 
-const PostsPage = ( { navigation } ) => {
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList,'PostsPage'>;
+type Props = {
+    navigation: ProfileScreenNavigationProp;
+};
+
+
+const PostsPage = ( { navigation }:Props ) => {
 
     useEffect( () => {
-        
         PostsStore.getPosts()
-
     },[])
-
-    
-    const loadScene = () => {
-        navigation.navigate('AddPost')
-    }
 
     return (
 
@@ -26,11 +26,11 @@ const PostsPage = ( { navigation } ) => {
                 <Button 
                     color='#80bb97'
                     title ="Добавить пост" 
-                    onPress = {loadScene} />
+                    onPress = { () => navigation.navigate('AddPost') } 
+                />
             </View>
             
-
-            <PostList navigation={navigation}/>
+            <PostList/>
         </SafeAreaView>
     )
 }

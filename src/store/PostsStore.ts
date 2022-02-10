@@ -2,6 +2,8 @@ import React, {useState, useMemo, useEffect} from 'react';
 import { makeAutoObservable, makeObservable, toJS} from "mobx";
 import { observable, action, runInAction, computed} from 'mobx';
 import PostService from '../API/PostService';
+import type { addPostInterface, onePostInterface } from '../store/InterfaceStore';
+
 
 class PostsStore {
 
@@ -11,6 +13,8 @@ class PostsStore {
             addPost: observable,
             editPostID: observable,
             onePost: observable,
+            searchQuery: observable,
+            sortOrderByID: observable,
 
             getPosts: action,
             addPostFunction: action,
@@ -19,23 +23,31 @@ class PostsStore {
             editOnePost: action,
             sortPostId: action,
             sortPostIdRev: action,
+            setSearchQuery: action,
+            doOnePost: action,
+
+            total: computed,
         })
     }
 
-    posts = [];
+    posts: onePostInterface[]= [];
 
     
     //функция сортировки постов
+    sortOrderByID = 'UP'
+
     sortPostId = () => {
         runInAction( () => {
-            this.posts.sort( (a,b) => b['id']-a['id'] )
+            this.posts.sort( (a, b) => b['id']-a['id'] )
             console.log(toJS(this.posts))
+            this.sortOrderByID = 'UP'
         })
     }
-    sortPostIdRev = ( sortSelect ) => {
+    sortPostIdRev = () => {
         runInAction( () => {
             this.posts.sort( (a,b) => a['id']-b['id'] )
             console.log(toJS(this.posts))
+            this.sortOrderByID = 'DOWN'
         })
     }
 
@@ -45,7 +57,7 @@ class PostsStore {
         try {
                 const res = await PostService.getAll()
                 runInAction( () => {
-                    this.posts = res.sort( (a,b) => b['id']-a['id'] )
+                    this.posts = res.sort( (a: number, b:number) => b['id']-a['id'] )
                 })
         }
         finally {
@@ -58,14 +70,14 @@ class PostsStore {
     }
 
     //Добавление поста
-    addPost = {
+    addPost: addPostInterface = {
         title: '',
         body: '',
         done: false
     }
 
     //функция добавления постов
-    addPostFunction = async ( title, body ) => {
+    addPostFunction = async ( title: string, body:string ) => {
 
         this.addPost.title = title
         this.addPost.body = body
@@ -75,28 +87,27 @@ class PostsStore {
         runInAction( async () => {
             this.addPost = { title: '', body: '', done: false }
         })
-        
         this.getPosts()
-        
     }
 
 
-    //Функция получения одного поста
-    editPostID = ''
+    //ID одного поста
+    editPostID: string = ''
 
-    onePost = {
+    //Данные одного поста по ID
+    onePost: onePostInterface = {
         id: '',
         title: '',
         body: '',
         done: false
     }
     
-
-    getOnePost = async (id) => {
+    //Функция получения одного поста
+    getOnePost = async (id: string): Promise<void> => {
 
         const res = await PostService.getOnePost(id)
+        //console.log(res)
 
-        console.log(res)
         if (res.id == id) {
             runInAction( async () => {
                 this.onePost = res
@@ -105,8 +116,7 @@ class PostsStore {
     }
 
     //Редактирование поста
-
-    editOnePost = async (title, body) => {
+    editOnePost = async (title: string, body:string) => {
 
         this.onePost.title =  title
         this.onePost.body =  body
@@ -117,12 +127,35 @@ class PostsStore {
     }
 
 
-    //функция удаления постов
-    delPost = async (id) => {
+    //отметка "выполненно" поста
+    doOnePost = async (id: string, item: onePostInterface) => {
+        console.log(id)
+        console.log(item)
+        await PostService.doOnePost(id, item)
+        await this.getPosts()
+        
+    }
 
+    //функция удаления постов
+    delPost = async (id: string) => {
         await PostService.delPost(id)
         await this.getPosts()
     }
+
+    //Поиск
+    searchQuery = ''
+
+    setSearchQuery = (text: string) => {
+        runInAction( async () => {
+            this.searchQuery = text
+        })
+    }
+
+    get total() {
+        return this.posts.filter( post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    }
+
+    
 }
 
 

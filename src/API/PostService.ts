@@ -1,9 +1,11 @@
 import axios from "axios";
 import { toJS } from "mobx";
 import UserStore from "../store/UserStore";
+import type { addPostInterface, onePostInterface, userInterface } from '../store/InterfaceStore';
+
+
 export default class PostService {
     
-
     static async getAll () {
 
         try {
@@ -15,18 +17,18 @@ export default class PostService {
         }
     }
 
-    static  addPost = async (post) => {
+    static  addPost = async (post: addPostInterface): Promise<void> => {
 
         try {
-            const response = await axiosOptions().post('tasks', post)
-            return response.data
+            await axiosOptions().post('tasks', post)
+            //return response.data
         }
         catch (e) {
             console.log(e);
         }
     }
 
-    static  getOnePost = async (id) => {
+    static  getOnePost = async (id: string) => {
 
         try {
             const response = await axiosOptions().get(`tasks/${id}`)
@@ -37,7 +39,7 @@ export default class PostService {
         }
     }
 
-    static  editOnePost = async (onePost, id) => {
+    static  editOnePost = async (onePost: onePostInterface, id:string) => {
 
         try {
             const response = await axiosOptions().put(`tasks/${id}`, onePost)
@@ -48,8 +50,18 @@ export default class PostService {
         }
     }
 
+    static  doOnePost = async (id:string, onePost: onePostInterface) => {
+        try {
+            const response = await axiosOptions().post(`tasks/${id}/replace`, onePost)
+            //return response.data
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
-    static  delPost = async (id) => {
+
+    static  delPost = async (id:string) => {
 
         try {
             const response = await axiosOptions().delete(`tasks/${id}`)
@@ -61,10 +73,9 @@ export default class PostService {
     }
 
     
-    static  login = async (user) => {
+    static  login = async (user: userInterface): Promise<String | void>  => {
 
         try {
-            
             const response = await axiosOptions().post('Users/login', user)
             return response.data.id
         }

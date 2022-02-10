@@ -11,10 +11,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import UserStore from "../src/store/UserStore";
 import { observer } from 'mobx-react';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+    PostsPage: undefined,
+    AddPost: undefined,
+    EditPage: undefined,
+    LoginPage: undefined,
+    Profile: { name: string };
+  };
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 
-function Home() {
+function Home(): JSX.Element {
     return (
         <NavigationContainer>
                 <Stack.Navigator>

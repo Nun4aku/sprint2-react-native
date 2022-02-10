@@ -1,33 +1,31 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
-import PostsStore from '../src/store//PostsStore';
+import PostsStore from '../src/store/PostsStore';
 import { toJS } from "mobx";
+import { useNavigation } from '@react-navigation/native';
 
-const EditPage = ( { navigation } ) => {
+const EditPage = () => {
 
     
     const [title, onChangeTextTitle] = useState(PostsStore.onePost.title)
     const [body, onChangeTextBody] = useState(PostsStore.onePost.body)
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
             <Text>Редактируем пост ID: {PostsStore.editPostID}</Text>
 
-            
-            <TextInput 
-                name='title'
+            <TextInput
                 style={styles.input}
                 value = {title}
                 onChangeText={onChangeTextTitle}
                 
             />
             <TextInput
-                name='body'
                 multiline={true}
                 numberOfLines={20}
                 style={styles.input}
-            
                 value = {body}
                 onChangeText={onChangeTextBody}
                 
