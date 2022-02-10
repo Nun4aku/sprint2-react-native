@@ -24,6 +24,7 @@ class PostsStore {
             sortPostId: action,
             sortPostIdRev: action,
             setSearchQuery: action,
+            doOnePost: action,
 
             total: computed,
         })
@@ -123,6 +124,16 @@ class PostsStore {
         // console.log(this.onePost.id)
         await PostService.editOnePost(this.onePost, this.onePost.id)
         await this.getPosts()
+    }
+
+
+    //отметка "выполненно" поста
+    doOnePost = async (id: string, item: onePostInterface) => {
+        console.log(id)
+        console.log(item)
+        await PostService.doOnePost(id, item)
+        await this.getPosts()
+        
     }
 
     //функция удаления постов

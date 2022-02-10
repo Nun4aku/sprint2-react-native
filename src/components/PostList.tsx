@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Button, FlatList, TextInput, Image} from 'react-native';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import PostsStore from '../store/PostsStore';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainerRefContext, useNavigation } from '@react-navigation/native';
 import type { addPostInterface, onePostInterface } from '../store/InterfaceStore';
 
 
@@ -86,8 +86,45 @@ const PostList =  ():JSX.Element => {
                                         >
                                             <View style = {styles.post}>  
                                                 <Text>ID:{item.id}</Text>
-                                                <Text style = {styles.title}>{item.title}</Text>
+                                                <View style = {styles.title_and_logo}>
+                                                    <Text style = {styles.title}>{item.title}</Text>
+                                                    <View>
+                                                        {
+                                                            (item.done == false) ?
+                                                            (
+                                                                <TouchableOpacity 
+                                                                    onPress={
+                                                                            () => {
+                                                                                item.done = true
+                                                                                PostsStore.doOnePost(item.id, toJS(item))
+                                                                            }
+                                                                }>
+                                                                    <Image
+                                                                        style={styles.logo}
+                                                                        source={require('../../img/correct.png')}
+                                                                    />
+                                                                </TouchableOpacity>
+                                                            ) : 
+                                                            (item.done == true) ? (
+                                                                <TouchableOpacity 
+                                                                    onPress={
+                                                                            () => {
+                                                                                item.done = false
+                                                                                PostsStore.doOnePost(item.id, toJS(item))
+                                                                            }
+                                                                }>
+                                                                    <Image
+                                                                        style={styles.logo}
+                                                                        source={require('../../img/notOk.png')}
+                                                                    />
+                                                                </TouchableOpacity>
+                                                            ) : (<></>)
+                                                        }
+                                                    </View>
+                                                </View>
+                                                
                                                 <Text style= {styles.body}>{item.body}</Text>
+
                                                 <Button 
                                                     color="#62ad80"
                                                     title='удалить'
@@ -119,14 +156,10 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingBottom: 5,
-        marginBottom: 20,
         paddingTop: 10,
         fontSize: 22,
         fontWeight: '500',
-        borderBottomColor: '#ededed',
-        borderStyle: 'solid',
-        borderColor: '#dfdfdf',
-        borderBottomWidth: 1,
+        
         
     },
     body: {
@@ -149,5 +182,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: '#fff',
         width: 170,
-    }
+    },
+    logo: {
+        width: 25,
+        height: 25,
+        marginLeft: 20,
+      },
+    title_and_logo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomColor: '#ededed',
+        borderStyle: 'solid',
+        borderColor: '#dfdfdf',
+        borderBottomWidth: 1,
+        marginBottom: 20,
+      },
   });

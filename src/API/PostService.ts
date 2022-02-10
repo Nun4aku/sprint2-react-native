@@ -50,6 +50,16 @@ export default class PostService {
         }
     }
 
+    static  doOnePost = async (id:string, onePost: onePostInterface) => {
+        try {
+            const response = await axiosOptions().post(`tasks/${id}/replace`, onePost)
+            //return response.data
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
 
     static  delPost = async (id:string) => {
 
