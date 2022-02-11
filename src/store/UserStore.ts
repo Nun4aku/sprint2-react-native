@@ -29,6 +29,7 @@ class UserStore {
         this.user.email = email
         this.user.password = password
 
+        
         const res = await PostService.login(this.user)
         
         if(res) {
@@ -39,7 +40,7 @@ class UserStore {
             console.log(this.Token)
         }else {
             alert('Логин или пароль не верны')
-        }   
+        } 
     }
 
     logout = async() => {  

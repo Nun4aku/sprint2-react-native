@@ -36,7 +36,8 @@ const PostList =  ():JSX.Element => {
                             </View>
                         ) 
                         :
-                        (PostsStore.sortOrderByID =='DOWN') ? (
+                        (PostsStore.sortOrderByID =='DOWN') ? 
+                        (
                             <View style={styles.sortBtn}>
                                 <Button
                                     color='#80bb97'
@@ -61,7 +62,7 @@ const PostList =  ():JSX.Element => {
                         value = {PostsStore.searchQuery}
                         onChangeText = { (text) => {
                             PostsStore.setSearchQuery(text)
-                            PostsStore.total
+                            PostsStore.totalPosts
                         }}
                         placeholder="search"
                     /> 
@@ -70,7 +71,7 @@ const PostList =  ():JSX.Element => {
 
             
             <FlatList 
-                data={toJS(PostsStore.total)}
+                data={toJS(PostsStore.totalPosts)}
                 //keyExtractor={item => item.id}
                 renderItem={ 
                     ( {item}: {item: onePostInterface} ):JSX.Element  => (

@@ -17,33 +17,33 @@ function Navigate() {
                         name="PostsPage"
                         component={PostsPage}
                         options={ 
-                                    { 
-                                        title: 'Все посты',
-                                        headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { color: '#fff'}
-                                    }
+                            { 
+                                title: 'Все посты',
+                                headerStyle: { backgroundColor: '#62ad80' },
+                                headerTitleStyle: { color: '#fff'}
+                            }
                         }
                     />
                     <Stack.Screen
                         name="AddPost"
                         component={AddPost}
                         options={ 
-                                    { 
-                                        title: 'Добавить пост',
-                                        headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { color: '#fff'}
-                                    }
+                            { 
+                                title: 'Добавить пост',
+                                headerStyle: { backgroundColor: '#62ad80' },
+                                headerTitleStyle: { color: '#fff'}
+                            }
                         }
                     />
                     <Stack.Screen
                         name="EditPage"
                         component={EditPage}
                         options={ 
-                                    { 
-                                        title: 'Редактировать пост',
-                                        headerStyle: { backgroundColor: '#62ad80' },
-                                        headerTitleStyle: { color: '#fff'}
-                                    }
+                            { 
+                                title: 'Редактировать пост',
+                                headerStyle: { backgroundColor: '#62ad80' },
+                                headerTitleStyle: { color: '#fff'}
+                            }
                         }
                     />
 

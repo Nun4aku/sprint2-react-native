@@ -6,7 +6,8 @@ import type { addPostInterface, onePostInterface, userInterface } from '../store
 
 export default class PostService {
     
-    static async getAll () {
+    static async getAll (): Promise<onePostInterface[] | undefined> {
+    //static async getAll () {
 
         try {
             const response = await axiosOptions().get('tasks')
@@ -14,6 +15,7 @@ export default class PostService {
     
         } catch (e) {
             console.log(e);
+            console.log('Не удалось загрузить все посты')
         }
     }
 
@@ -28,7 +30,7 @@ export default class PostService {
         }
     }
 
-    static  getOnePost = async (id: string) => {
+    static  getOnePost = async (id: string): Promise<onePostInterface | undefined> => {
 
         try {
             const response = await axiosOptions().get(`tasks/${id}`)

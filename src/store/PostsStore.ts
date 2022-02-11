@@ -26,7 +26,7 @@ class PostsStore {
             setSearchQuery: action,
             doOnePost: action,
 
-            total: computed,
+            totalPosts: computed,
         })
     }
 
@@ -56,9 +56,12 @@ class PostsStore {
 
         try {
                 const res = await PostService.getAll()
-                runInAction( () => {
-                    this.posts = res.sort( (a: number, b:number) => b['id']-a['id'] )
-                })
+                if( res !== undefined) {
+                    runInAction( () => {
+                        this.posts = res.sort( (a, b) => parseInt(b.id)-parseInt(a.id) )
+                        //this.posts = res.sort( (a, b) => b['id']-a['id'] )
+                    })
+                }
         }
         finally {
             /*
@@ -103,15 +106,20 @@ class PostsStore {
     }
     
     //Функция получения одного поста
-    getOnePost = async (id: string): Promise<void> => {
+    getOnePost = async (id: string): Promise<onePostInterface | undefined> => {
 
         const res = await PostService.getOnePost(id)
         //console.log(res)
 
-        if (res.id == id) {
-            runInAction( async () => {
-                this.onePost = res
-            })
+        if (res !== undefined) {
+            if (res.id == id) {
+                return this.onePost = res
+                // runInAction( async () => {
+                //     this.onePost = res
+                // })
+            }
+        } else {
+            console.log('пост не найден')
         }
     }
 
@@ -151,11 +159,10 @@ class PostsStore {
         })
     }
 
-    get total() {
+    get totalPosts() {
         return this.posts.filter( post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
 
-    
 }
 
 
