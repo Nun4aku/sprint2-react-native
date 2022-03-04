@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import { observer } from 'mobx-react';
-import PostForm from '../src/components/PostForm';
+import PostForm from '../components/PostForm';
 
 const AddPost = () => {
     return (

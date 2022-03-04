@@ -1,7 +1,7 @@
 import React from "react";
-import PostsPage from "./pages/PostsPage";
-import AddPost from "./pages/AddPost";
-import EditPage from './pages/EditPage';
+import PostsPage from "./src/pages/PostsPage";
+import AddPost from "./src/pages/AddPost";
+import EditPage from './src/pages/EditPage';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';

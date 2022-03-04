@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toJS } from "mobx";
 import UserStore from "../store/UserStore";
-import type { addPostInterface, onePostInterface, userInterface } from '../store/InterfaceStore';
+import type { addPostInterface, onePostInterface, userInterface } from '../interfaces/Interfaces';
 
 
 export default class PostService {
@@ -75,7 +75,7 @@ export default class PostService {
     }
 
     
-    static  login = async (user: userInterface): Promise<String | void>  => {
+    static  login = async (user: userInterface): Promise<string | void>  => {
 
         try {
             const response = await axiosOptions().post('Users/login', user)

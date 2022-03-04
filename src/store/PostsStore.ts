@@ -2,7 +2,7 @@ import React, {useState, useMemo, useEffect} from 'react';
 import { makeAutoObservable, makeObservable, toJS} from "mobx";
 import { observable, action, runInAction, computed} from 'mobx';
 import PostService from '../API/PostService';
-import type { addPostInterface, onePostInterface } from '../store/InterfaceStore';
+import type { addPostInterface, onePostInterface } from '../interfaces/Interfaces';
 
 
 class PostsStore {

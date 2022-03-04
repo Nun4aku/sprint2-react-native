@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, SafeAreaView} from 'react-native';
 import { observer } from 'mobx-react';
-import PostList from '../src/components/PostList';
-import PostsStore from '../src/store/PostsStore';
+import PostList from '../components/PostList';
+import PostsStore from '../store/PostsStore';
 import { StackNavigationProp } from '@react-navigation/stack';
 import type {RootStackParamList} from './Home';
 

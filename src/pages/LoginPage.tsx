@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import { observer } from 'mobx-react';
-import UserStore from '../src/store/UserStore';
+import UserStore from '../store/UserStore';
 
 
 const LoginPage = () => {

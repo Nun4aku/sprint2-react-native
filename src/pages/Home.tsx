@@ -8,7 +8,7 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView, Button } from 'react-
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 
-import UserStore from "../src/store/UserStore";
+import UserStore from "../store/UserStore";
 import { observer } from 'mobx-react';
 
 export type RootStackParamList = {

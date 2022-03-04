@@ -1,6 +1,6 @@
 import React, {useState, useMemo, useEffect} from 'react';
 import { makeAutoObservable, makeObservable, toJS} from "mobx";
-import { observable, computed, configure, action, decorate, runInAction} from 'mobx';
+import { observable, computed, configure, action, runInAction} from 'mobx';
 import PostService from '../API/PostService';
 
 class UserStore {
@@ -16,20 +16,22 @@ class UserStore {
         }) 
     }
 
+
     isAuth: boolean = false
     Token: string = ''
+
 
     user = {
         email: "nun2@gmail.com",
         password: "12345678"
     }
 
+
     login = async (email: string, password: string) => {
         
         this.user.email = email
         this.user.password = password
 
-        
         const res = await PostService.login(this.user)
         
         if(res) {

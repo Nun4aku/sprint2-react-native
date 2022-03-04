@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import PostsStore from '../store/PostsStore';
 import { NavigationContainerRefContext, useNavigation } from '@react-navigation/native';
-import type { addPostInterface, onePostInterface } from '../store/InterfaceStore';
+import type { addPostInterface, onePostInterface } from '../interfaces/Interfaces';
 
 
 
@@ -102,7 +102,7 @@ const PostList =  ():JSX.Element => {
                                                                 }>
                                                                     <Image
                                                                         style={styles.logo}
-                                                                        source={require('../../img/correct.png')}
+                                                                        source={require('../img/correct.png')}
                                                                     />
                                                                 </TouchableOpacity>
                                                             ) : 
@@ -116,7 +116,7 @@ const PostList =  ():JSX.Element => {
                                                                 }>
                                                                     <Image
                                                                         style={styles.logo}
-                                                                        source={require('../../img/notOk.png')}
+                                                                        source={require('../img/notOk.png')}
                                                                     />
                                                                 </TouchableOpacity>
                                                             ) : (<></>)
